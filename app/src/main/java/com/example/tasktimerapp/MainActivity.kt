@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         stop.setOnClickListener{
             if (running) {
                 chronometer.stop();
-                pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+                pauseOffset = SystemClock.elapsedRealtime() - chronometer.base;
                 running = false;
             }
         }
