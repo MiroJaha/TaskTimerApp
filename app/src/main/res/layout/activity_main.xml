@@ -7,6 +7,14 @@
     tools:context=".MainActivity">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Chronometer
         android:id="@+id/timer"
@@ -33,21 +41,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="stop"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mainRV" />
 
     <TextView
         android:id="@+id/textView"
-        android:textSize="50sp"
+        android:textSize="15sp"
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/timer"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

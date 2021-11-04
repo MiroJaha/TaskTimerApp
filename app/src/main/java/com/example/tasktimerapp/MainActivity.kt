@@ -7,8 +7,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Chronometer
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tasktimerapp.room.Data
+import com.example.tasktimerapp.rv.RVAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,9 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val tasksList= arrayListOf<Data>()
+
         val chronometer = findViewById<Chronometer>(R.id.timer)
         val start = findViewById<Button>(R.id.button)
         val stop = findViewById<Button>(R.id.button2)
+        val rvMain= findViewById<RecyclerView>(R.id.mainRV)
         val showNumber = findViewById<TextView>(R.id.textView)
         var running = false
         var pauseOffset: Long = 0
@@ -28,6 +34,20 @@ class MainActivity : AppCompatActivity() {
         chronometer.format = "Time: %s"
         chronometer.base = SystemClock.elapsedRealtime()
 
+        val adapter= RVAdapter(tasksList)
+        rvMain.adapter= adapter
+        rvMain.layoutManager= LinearLayoutManager(this)
+
+        taskViewModel.getAllTasks().observe(this){
+            tasksList.clear()
+            tasksList.addAll(it)
+            adapter.notifyDataSetChanged()
+        }
+
+        //This Data Will Be Updated Each time The Timer Stop To Test The Data
+        taskViewModel.updateTask(Data(1,"999","NoTime",0))
+
+        //This Codes Will Listen to the timer everytime is ticking
 //        chronometer.onChronometerTickListener = Chronometer.OnChronometerTickListener {
 //            if ((SystemClock.elapsedRealtime() - chronometer.base) >= 10000) {
 //                chronometer.base = SystemClock.elapsedRealtime()
@@ -55,7 +75,10 @@ class MainActivity : AppCompatActivity() {
                 showNumber.text = chronometer.contentDescription
 
                 //This Code Will Show The Time Passed in Seconds
-                //(pauseOffset/1000).toString()
+                //pauseOffset/1000
+
+                taskViewModel.updateTask(Data(1,"999","NoTime",tasksList[0].taskTime+pauseOffset/1000))
+                taskViewModel.addNewTask(Data(0,"$pauseOffset",showNumber.text.toString(),pauseOffset/1000))
 
                 running = false
             }
