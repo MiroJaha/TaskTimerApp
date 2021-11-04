@@ -23,7 +23,7 @@ class RVAdapter (private val tasks: ArrayList<Data>): RecyclerView.Adapter<RVAda
         holder.binding.apply {
             taskName.text = "Task Name: $title"
             timer.base= SystemClock.elapsedRealtime() - time*1000
-            totalTime.text = "Total Time: ${timer.contentDescription}"
+            totalTime.text = "Total Time: ${timer.contentDescription}\n${timer.text}"
         }
     }
 
