@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val tasksList= arrayListOf<Data>()
+        val tasksList = arrayListOf<Data>()
 
         val chronometer = findViewById<Chronometer>(R.id.timer)
         val start = findViewById<Button>(R.id.button)
         val stop = findViewById<Button>(R.id.button2)
-        val rvMain= findViewById<RecyclerView>(R.id.mainRV)
+        val rvMain = findViewById<RecyclerView>(R.id.mainRV)
         val showNumber = findViewById<TextView>(R.id.textView)
         var running = false
         var pauseOffset: Long = 0
@@ -34,18 +34,18 @@ class MainActivity : AppCompatActivity() {
         chronometer.format = "Time: %s"
         chronometer.base = SystemClock.elapsedRealtime()
 
-        val adapter= RVAdapter(tasksList)
-        rvMain.adapter= adapter
-        rvMain.layoutManager= LinearLayoutManager(this)
+        val adapter = RVAdapter(tasksList)
+        rvMain.adapter = adapter
+        rvMain.layoutManager = LinearLayoutManager(this)
 
-        taskViewModel.getAllTasks().observe(this){
+        taskViewModel.getAllTasks().observe(this) {
             tasksList.clear()
             tasksList.addAll(it)
             adapter.notifyDataSetChanged()
         }
 
         //This Data Will Be Updated Each time The Timer Stop To Test The Data
-        taskViewModel.updateTask(Data(1,"999","NoTime",0))
+        taskViewModel.updateTask(Data(1, "999", "NoTime", 0))
 
         //This Codes Will Listen to the timer everytime is ticking
 //        chronometer.onChronometerTickListener = Chronometer.OnChronometerTickListener {
@@ -57,9 +57,12 @@ class MainActivity : AppCompatActivity() {
 
         start.setOnClickListener {
             if (!running) {
-                Log.d("MyTime","before ${chronometer.base} ${SystemClock.elapsedRealtime()} $pauseOffset")
-                chronometer.base = SystemClock.elapsedRealtime() - pauseOffset*10
-                Log.d("MyTime","after ${chronometer.base} ${SystemClock.elapsedRealtime()}")
+                Log.d(
+                    "MyTime",
+                    "before ${chronometer.base} ${SystemClock.elapsedRealtime()} $pauseOffset"
+                )
+                chronometer.base = SystemClock.elapsedRealtime() - pauseOffset * 10
+                Log.d("MyTime", "after ${chronometer.base} ${SystemClock.elapsedRealtime()}")
                 chronometer.start()
                 running = true
             }
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         stop.setOnClickListener {
             if (running) {
                 chronometer.stop()
-                Log.d("MyTime","stop ${chronometer.base} ${SystemClock.elapsedRealtime()}")
+                Log.d("MyTime", "stop ${chronometer.base} ${SystemClock.elapsedRealtime()}")
                 pauseOffset = SystemClock.elapsedRealtime() - chronometer.base
 
                 //This Code Will Show Description About The Time EX(9 Seconds)
@@ -77,8 +80,22 @@ class MainActivity : AppCompatActivity() {
                 //This Code Will Show The Time Passed in Seconds
                 //pauseOffset/1000
 
-                taskViewModel.updateTask(Data(1,"999","NoTime",tasksList[0].taskTime+pauseOffset/1000))
-                taskViewModel.addNewTask(Data(0,"$pauseOffset",showNumber.text.toString(),pauseOffset/1000))
+                taskViewModel.updateTask(
+                    Data(
+                        1,
+                        "999",
+                        "NoTime",
+                        tasksList[0].taskTime + pauseOffset / 1000
+                    )
+                )
+                taskViewModel.addNewTask(
+                    Data(
+                        0,
+                        "$pauseOffset",
+                        showNumber.text.toString(),
+                        pauseOffset / 1000
+                    )
+                )
 
                 running = false
             }
