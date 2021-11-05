@@ -1,15 +1,16 @@
 package com.example.tasktimerapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasktimerapp.room.Data
 import io.github.muddz.styleabletoast.StyleableToast
 
-class AddTaskActivity : AppCompatActivity() {
+class EditTasks : AppCompatActivity() {
 
     private val taskViewModel by lazy { ViewModelProvider(this).get(TaskViewModel::class.java) }
 
@@ -17,20 +18,30 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var taskDescriptionEntry: EditText
     private lateinit var prioritySpinner: Spinner
     private lateinit var saveButton: Button
-    private lateinit var priority: String
+    private lateinit var taskName: String
+    private lateinit var taskDescription: String
+    private lateinit var priority : String
+    private var pk= 0
+    private lateinit var data : Data
+    private lateinit var bundle: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
+        setContentView(R.layout.edit_task)
 
         taskNameEntry = findViewById(R.id.eTask)
         taskDescriptionEntry = findViewById(R.id.eDescription)
         prioritySpinner = findViewById(R.id.spinner)
         saveButton = findViewById(R.id.save_button)
 
-        onSpinnerSelected()
+        bundle= intent.extras!!
+        pk= bundle.getInt("pk")
+        data= taskViewModel.getTask(pk)
+        taskName= data.taskName
+        taskDescription= data.taskDescription
+        priority= data.priority
 
-        onSaveButtonClicked()
+        setHint()
     }
 
     private fun onSaveButtonClicked() {
@@ -56,7 +67,7 @@ class AddTaskActivity : AppCompatActivity() {
                                 taskNameEntry.text.toString(),
                                 taskDescriptionEntry.text.toString(),
                                 0,
-                                "High"
+                                "Medium"
                             )
                         )
                         StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
@@ -84,32 +95,10 @@ class AddTaskActivity : AppCompatActivity() {
     }
 
     private fun checkEntry(): Boolean {
-        if (taskNameEntry.text.isBlank())
-            return false
-        if (taskDescriptionEntry.text.isBlank())
-            return false
-        return true
+        return false
     }
 
-    private fun onSpinnerSelected() {
-        val priorityList = arrayListOf("High", "Medium", "Low")
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item, priorityList
-        )
-        prioritySpinner.adapter = adapter
-        prioritySpinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View, position: Int, id: Long
-            ) {
-                priority = priorityList[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                priority = ""
-            }
-        }
+    private fun setHint() {
+        taskNameEntry.hint= "Task Name: $taskName"
     }
 }

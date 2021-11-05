@@ -17,6 +17,10 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return connection.getAllTasks()
     }
 
+    fun getTask(givenPk:Int): Data{
+        return connection.getTask(givenPk)
+    }
+
     fun addNewTask(task: Data) {
         CoroutineScope(IO).launch {
             connection.addNewTask(task)
