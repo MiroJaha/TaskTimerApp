@@ -13,10 +13,13 @@ import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 
 class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Data>) :
     RecyclerView.Adapter<RVMainAdapter.ItemViewHolder>() {
-
-    private lateinit var expansionsCollection: ExpansionLayoutCollection
-
     class ItemViewHolder(val binding: MainRvBinding) : RecyclerView.ViewHolder(binding.root)
+
+    private var expansionsCollection: ExpansionLayoutCollection = ExpansionLayoutCollection()
+
+    init {
+        expansionsCollection.openOnlyOne(true)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
