@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tasktimerapp.databinding.ViewBinding
 import com.example.tasktimerapp.room.Data
 
-class RVAdapter(private val tasks: ArrayList<Data>) :
-    RecyclerView.Adapter<RVAdapter.ItemViewHolder>() {
+class RVMainAdapter(private val tasks: ArrayList<Data>) :
+    RecyclerView.Adapter<RVMainAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root)
 

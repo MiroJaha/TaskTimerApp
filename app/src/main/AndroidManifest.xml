@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskTimerApp">
-        <activity android:name=".welcom_instructions.WelcomeScreen"
+        <activity android:name=".welcome_instructions.InstructionsScreen" />
+        <activity
+            android:name=".welcome_instructions.WelcomeScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +26,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
     </application>
 
 </manifest>
