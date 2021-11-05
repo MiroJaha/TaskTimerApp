@@ -26,4 +26,8 @@ class RVMainAdapter(private val tasks: ArrayList<Data>) :
     }
 
     override fun getItemCount() = tasks.size
+
+    fun updateRVMain(){
+        notifyDataSetChanged()
+    }
 }

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         taskViewModel.getAllTasks().observe(this){
             tasksList.clear()
             tasksList.addAll(it)
-            adapter.notifyDataSetChanged()
+            adapter.updateRVMain()
         }
 
 

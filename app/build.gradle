@@ -38,6 +38,9 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
 
+    //Expansion Panel
+    implementation 'com.github.florent37:expansionpanel:1.2.4'
+
     //Swipe RecyclerView
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
 
