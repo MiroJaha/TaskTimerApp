@@ -4,17 +4,15 @@ import android.content.Context
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import android.R
-import android.graphics.Color
-import android.provider.CalendarContract
 import androidx.core.content.ContextCompat
+import com.example.tasktimerapp.R
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 abstract class SwipeTasks(context: Context):ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
 
-    private val deleteColor= ContextCompat.getColor(context,R.color.holo_red_dark)
-    private val editColor= ContextCompat.getColor(context, R.color.holo_orange_light)
+    private val deleteColor= ContextCompat.getColor(context, R.color.deleteColor)
+    private val editColor= ContextCompat.getColor(context, R.color.editColor)
 
 
 
@@ -38,7 +36,7 @@ abstract class SwipeTasks(context: Context):ItemTouchHelper.SimpleCallback(0,Ite
 
         RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             .addBackgroundColor(deleteColor)
-            .addActionIcon(R.drawable.deleteic)
+            .addActionIcon(R.drawable.delete_ic)
             .create()
             .decorate()
 
