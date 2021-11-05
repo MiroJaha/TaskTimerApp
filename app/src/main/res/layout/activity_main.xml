@@ -42,6 +42,16 @@
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
+    <TextView
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItems"
@@ -55,18 +65,27 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
+    <ImageView
         android:id="@+id/bAdd"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_gravity="center|bottom"
-        android:background="@drawable/circle_button"
-        android:textColor="@color/white"
-        android:textSize="40sp"
+        android:backgroundTint="#257C9C"
+        android:background="@drawable/list_add_ic"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/showAll" />
+
+    <ImageView
+        android:id="@+id/showAll"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#257C9C"
+        android:background="@drawable/list_view_ic"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bAdd"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
