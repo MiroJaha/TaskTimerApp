@@ -6,12 +6,17 @@ import android.os.SystemClock
 import android.util.Log
 import android.widget.Button
 import android.widget.Chronometer
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.graphics.alpha
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasktimerapp.room.Data
 import com.example.tasktimerapp.rv.RVAdapter
+import kotlin.math.absoluteValue
+import kotlin.time.ExperimentalTime
+import kotlin.time.nanoseconds
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         val showNumber = findViewById<TextView>(R.id.textView)
         var running = false
         var pauseOffset: Long = 0
+
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         chronometer.format = "Time: %s"
         chronometer.base = SystemClock.elapsedRealtime()
@@ -57,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         start.setOnClickListener {
             if (!running) {
+                progressBar.isIndeterminate = true
                 Log.d(
                     "MyTime",
                     "before ${chronometer.base} ${SystemClock.elapsedRealtime()} $pauseOffset"
@@ -70,6 +78,9 @@ class MainActivity : AppCompatActivity() {
 
         stop.setOnClickListener {
             if (running) {
+                progressBar.isIndeterminate = false
+                progressBar.progress = 50
+                Log.d("MyTime", progressBar.progress.toString())
                 chronometer.stop()
                 Log.d("MyTime", "stop ${chronometer.base} ${SystemClock.elapsedRealtime()}")
                 pauseOffset = SystemClock.elapsedRealtime() - chronometer.base
