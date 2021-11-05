@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.tasktimerapp.room.Data
+import io.github.muddz.styleabletoast.StyleableToast
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -20,13 +23,76 @@ class AddTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
 
-        taskNameEntry= findViewById(R.id.eTask)
-        taskDescriptionEntry= findViewById(R.id.eDescription)
-        prioritySpinner= findViewById(R.id.spinner)
-        saveButton= findViewById(R.id.save_button)
+        taskNameEntry = findViewById(R.id.eTask)
+        taskDescriptionEntry = findViewById(R.id.eDescription)
+        prioritySpinner = findViewById(R.id.spinner)
+        saveButton = findViewById(R.id.save_button)
 
-        val priorityList= arrayListOf("High","Medium","Low")
+        onSpinnerSelected()
 
+        onSaveButtonClicked()
+    }
+
+    private fun onSaveButtonClicked() {
+        saveButton.setOnClickListener {
+            if (checkEntry()) {
+                when (priority) {
+                    "High" -> {
+                        taskViewModel.addNewTask(
+                            Data(
+                                0,
+                                taskNameEntry.text.toString(),
+                                taskDescriptionEntry.text.toString(),
+                                0,
+                                ContextCompat.getColor(this, R.color.high)
+                            )
+                        )
+                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                    }
+                    "Medium" -> {
+                        taskViewModel.addNewTask(
+                            Data(
+                                0,
+                                taskNameEntry.text.toString(),
+                                taskDescriptionEntry.text.toString(),
+                                0,
+                                ContextCompat.getColor(this, R.color.medium)
+                            )
+                        )
+                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                    }
+                    "Low" -> {
+                        taskViewModel.addNewTask(
+                            Data(
+                                0,
+                                taskNameEntry.text.toString(),
+                                taskDescriptionEntry.text.toString(),
+                                0,
+                                ContextCompat.getColor(this, R.color.low)
+                            )
+                        )
+                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                    }
+                    else -> {
+                        StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast)
+                    }
+                }
+            } else {
+                StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast)
+            }
+        }
+    }
+
+    private fun checkEntry(): Boolean {
+        if (taskNameEntry.text.isBlank())
+            return false
+        if (taskDescriptionEntry.text.isBlank())
+            return false
+        return true
+    }
+
+    private fun onSpinnerSelected() {
+        val priorityList = arrayListOf("High", "Medium", "Low")
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item, priorityList
@@ -38,12 +104,12 @@ class AddTaskActivity : AppCompatActivity() {
                 parent: AdapterView<*>,
                 view: View, position: Int, id: Long
             ) {
-                priority= priorityList[position]
+                priority = priorityList[position]
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {
-                priority= ""
+                priority = ""
             }
         }
-
     }
 }
