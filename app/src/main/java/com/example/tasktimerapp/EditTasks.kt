@@ -1,9 +1,8 @@
 package com.example.tasktimerapp
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +23,7 @@ class EditTasks : AppCompatActivity() {
     private var pk= 0
     private lateinit var data : Data
     private lateinit var bundle: Bundle
+    private val priorityList = arrayListOf("High", "Medium", "Low")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +41,7 @@ class EditTasks : AppCompatActivity() {
         taskDescription= data.taskDescription
         priority= data.priority
 
+        onSpinnerSelected()
         setHint()
     }
 
@@ -58,7 +59,7 @@ class EditTasks : AppCompatActivity() {
                                 "High"
                             )
                         )
-                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                        StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
                     }
                     "Medium" -> {
                         taskViewModel.addNewTask(
@@ -70,7 +71,7 @@ class EditTasks : AppCompatActivity() {
                                 "Medium"
                             )
                         )
-                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                        StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
                     }
                     "Low" -> {
                         taskViewModel.addNewTask(
@@ -82,7 +83,7 @@ class EditTasks : AppCompatActivity() {
                                 "Low"
                             )
                         )
-                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                        StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
                     }
                     else -> {
                         StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast)
@@ -91,14 +92,56 @@ class EditTasks : AppCompatActivity() {
             } else {
                 StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast)
             }
+            setHint()
         }
     }
 
     private fun checkEntry(): Boolean {
-        return false
+        var check=false
+        if (taskNameEntry.text.isNotBlank()) {
+            taskName = taskNameEntry.text.toString()
+            check=true
+        }
+        if (taskDescriptionEntry.text.isNotBlank()){
+            taskDescription= taskDescriptionEntry.text.toString()
+            check=true
+        }
+        if (prioritySpinner.selectedItem.toString() != priority){
+            check=true
+        }
+        return check
     }
 
     private fun setHint() {
         taskNameEntry.hint= "Task Name: $taskName"
+        taskNameEntry.text.clear()
+        taskNameEntry.clearFocus()
+        taskDescriptionEntry.hint= "Task Description:\n$taskDescription"
+        taskDescriptionEntry.text.clear()
+        taskDescriptionEntry.clearFocus()
+        for (i in 0 until priorityList.size){
+            if (priority==priorityList[i]){
+                prioritySpinner.setSelection(i)
+            }
+        }
+    }
+
+    private fun onSpinnerSelected() {
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item, priorityList
+        )
+        prioritySpinner.adapter = adapter
+        prioritySpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                priority = priorityList[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
     }
 }
