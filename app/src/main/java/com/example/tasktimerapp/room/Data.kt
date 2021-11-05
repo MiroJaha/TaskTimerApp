@@ -8,5 +8,6 @@ data class Data(
     @PrimaryKey(autoGenerate = true) val pk: Int,
     val taskName: String,
     val taskDescription: String,
-    val taskTime: Long
+    val taskTime: Long,
+    val priority: String
 )
