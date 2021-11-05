@@ -21,11 +21,21 @@ class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Dat
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val taskName = tasks[position].taskName
-
+        val time= ""
         holder.binding.apply {
-            title.text = taskName
-            ContextCompat.getColor(context, R.color.low)
+            title.text = tasks[position].taskName
+            descriptionAndTime.text= "Description: ${tasks[position].taskDescription}\nTotal Time: ${tasks[position].taskName}"
+            when(tasks[position].priority){
+                "High" -> {
+                    mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.high))
+                }
+                "Medium" -> {
+                    mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.medium))
+                }
+                "Low" -> {
+                    mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.low))
+                }
+            }
         }
     }
 

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         rvItem= findViewById(R.id.rvItems)
         tasksList= arrayListOf()
 
-        adapter= RVMainAdapter(tasksList)
+        adapter= RVMainAdapter(this,tasksList)
         rvItem.adapter= adapter
         rvItem.layoutManager= LinearLayoutManager(this)
 
