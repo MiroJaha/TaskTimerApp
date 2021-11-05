@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TaskTimerApp</string>
+    <string name="welcome_names">Written By: Aisha\nDesigned by: Kholood\nFinal Touch: Mohammad Jaha</string>
 </resources>
