@@ -35,8 +35,10 @@ abstract class SwipeTasks(context: Context):ItemTouchHelper.SimpleCallback(0,Ite
     ) {
 
         RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-            .addBackgroundColor(deleteColor)
-            .addActionIcon(R.drawable.delete_ic)
+            .addSwipeLeftBackgroundColor(deleteColor)
+            .addSwipeLeftActionIcon(R.drawable.delete_ic)
+            .addSwipeRightBackgroundColor(editColor)
+            .addSwipeRightActionIcon(R.drawable.edit_ic)
             .create()
             .decorate()
 
