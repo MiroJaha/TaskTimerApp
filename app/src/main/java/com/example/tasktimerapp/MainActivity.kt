@@ -79,11 +79,9 @@ class MainActivity : AppCompatActivity() {
                     val second: Int= (pauseOffset / 1000).toInt()
                     progressBar.isIndeterminate = false
                     savedTime= pauseOffset - savedTime
-                    progressBar.progress = (pauseOffset - (second*1000)).toInt()
-
-                    taskViewModel.updateTaskTime(tasksList[position].taskTime + pauseOffset/1000 ,tasksList[position].pk)
-
+                    progressBar.progress = (savedTime - (second*1000)).toInt()
                     running = false
+                    taskViewModel.updateTaskTime(tasksList[position].taskTime + pauseOffset/1000 ,tasksList[position].pk)
                     taskViewModel.updateTaskStatus(false, tasksList[position].pk)
                 }
                 else if (previousPosition == position && !running){
@@ -97,11 +95,14 @@ class MainActivity : AppCompatActivity() {
                     reset.performClick()
                     taskViewModel.updateTaskStatus(false, tasksList[previousPosition].pk)
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
+                    savedTime =0
                     previousPosition=position
                 }
                 else{
                     progressBar.isIndeterminate = true
                     timer.start()
+                    timer.base = SystemClock.elapsedRealtime()
+                    pauseOffset = 0
                     running = true
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
                     previousPosition = position
@@ -122,7 +123,6 @@ class MainActivity : AppCompatActivity() {
             }
             else {
                 progressBar.isIndeterminate = false
-                progressBar.isIndeterminate = true
                 timer.base = SystemClock.elapsedRealtime()
                 pauseOffset = 0
             }

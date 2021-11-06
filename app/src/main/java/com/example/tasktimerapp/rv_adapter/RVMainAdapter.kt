@@ -23,7 +23,7 @@ class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Dat
 
     class ItemViewHolder(val binding: MainRvBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(binding.root){
         init {
-            itemView.setOnClickListener{
+            binding.title.setOnClickListener{
                 listener.onItemClick(adapterPosition)
             }
         }
@@ -58,13 +58,13 @@ class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Dat
 
             when(task.priority){
                 "High" -> {
-                    mainLay.setCardBackgroundColor(ContextCompat.getColor(context, R.color.high))
+                    rvLay.background = ContextCompat.getDrawable(context, R.drawable.round_corners_high)
                 }
                 "Medium" -> {
-                    mainLay.setCardBackgroundColor(ContextCompat.getColor(context, R.color.medium))
+                    rvLay.background = ContextCompat.getDrawable(context, R.drawable.round_corners_medium)
                 }
                 "Low" -> {
-                    mainLay.setCardBackgroundColor(ContextCompat.getColor(context, R.color.low))
+                    rvLay.background = ContextCompat.getDrawable(context, R.drawable.round_corners_low)
                 }
             }
 
