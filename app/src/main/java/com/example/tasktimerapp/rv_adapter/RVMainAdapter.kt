@@ -13,23 +13,38 @@ import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection
 
 class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Data>) :
     RecyclerView.Adapter<RVMainAdapter.ItemViewHolder>() {
-    class ItemViewHolder(val binding: MainRvBinding) : RecyclerView.ViewHolder(binding.root)
 
+    private lateinit var myListener: OnItemClickListener
     private var expansionsCollection: ExpansionLayoutCollection = ExpansionLayoutCollection()
 
     init {
         expansionsCollection.openOnlyOne(true)
     }
 
+    class ItemViewHolder(val binding: MainRvBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(binding.root){
+        init {
+            itemView.setOnClickListener{
+                listener.onItemClick(adapterPosition)
+            }
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener:OnItemClickListener ){
+        myListener=listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            MainRvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            MainRvBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            myListener
         )
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
-
         val task= tasks[position]
 
         holder.binding.apply {

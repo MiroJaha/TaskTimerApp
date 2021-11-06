@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tasksList: ArrayList<Data>
     private var running = false
     private var pauseOffset: Long=0
+    private var savedTime: Long=0
+    private var previousPosition= -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,46 +71,61 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun adapterListener() {
+        adapter.setOnItemClickListener(object : RVMainAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                if (previousPosition == position && running){
+                    timer.stop()
+                    pauseOffset = SystemClock.elapsedRealtime() - timer.base
+                    val second: Int= (pauseOffset / 1000).toInt()
+                    progressBar.isIndeterminate = false
+                    savedTime= pauseOffset - savedTime
+                    progressBar.progress = (pauseOffset - (second*1000)).toInt()
 
-    }
+                    taskViewModel.updateTaskTime(tasksList[position].taskTime + pauseOffset / 1000 ,tasksList[position].pk)
 
-    private fun startTimer(position: Int){
-        if (!running) {
-            progressBar.isIndeterminate = true
-            timer.base = SystemClock.elapsedRealtime() - pauseOffset
-            timer.start()
-            running = true
-        }
-        if (running) {
-            progressBar.isIndeterminate = false
-
-            progressBar.progress = 50
-            timer.stop()
-
-            pauseOffset = SystemClock.elapsedRealtime() - timer.base
-
-
-            //This Code Will Show The Time Passed in Seconds
-            //pauseOffset/1000
-
-            taskViewModel.updateTask(
-                Data(
-                    1,
-                    "999",
-                    "NoTime",
-                    tasksList[position].taskTime + pauseOffset / 1000,
-                    ""
-                )
-            )
-
-            running = false
-        }
+                    running = false
+                    taskViewModel.updateTaskStatus(false, tasksList[position].pk)
+                }
+                else if (previousPosition == position && !running){
+                    progressBar.isIndeterminate = true
+                    timer.base = SystemClock.elapsedRealtime() - pauseOffset
+                    timer.start()
+                    running = true
+                    taskViewModel.updateTaskStatus(true, tasksList[position].pk)
+                }
+                else if (running){
+                    reset.performClick()
+                    taskViewModel.updateTaskStatus(false, tasksList[previousPosition].pk)
+                    taskViewModel.updateTaskStatus(true, tasksList[position].pk)
+                    previousPosition=position
+                }
+                else{
+                    progressBar.isIndeterminate = true
+                    timer.start()
+                    running = true
+                    taskViewModel.updateTaskStatus(true, tasksList[position].pk)
+                    previousPosition = position
+                }
+            }
+        })
     }
 
     private fun addButtonsListeners() {
         reset.setOnClickListener{
-            timer.base = SystemClock.elapsedRealtime()
-            pauseOffset = 0
+            if (running){
+                progressBar.isIndeterminate = false
+                progressBar.isIndeterminate = true
+                val nowTime = (SystemClock.elapsedRealtime() - timer.base)/1000
+                taskViewModel.updateTaskTime(tasksList[previousPosition].taskTime+nowTime,tasksList[previousPosition].pk)
+                timer.base = SystemClock.elapsedRealtime()
+                pauseOffset = 0
+            }
+            else {
+                progressBar.isIndeterminate = false
+                progressBar.isIndeterminate = true
+                timer.base = SystemClock.elapsedRealtime()
+                pauseOffset = 0
+            }
         }
         addButton.setOnClickListener{
             startActivity(Intent(this,AddTaskActivity::class.java))

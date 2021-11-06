@@ -33,6 +33,18 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateTaskTime(taskTime: Long, givenPk: Int){
+        CoroutineScope(IO).launch {
+            connection.updateTaskTime(taskTime,givenPk)
+        }
+    }
+
+    fun updateTaskStatus(status: Boolean, givenPk: Int){
+        CoroutineScope(IO).launch {
+            connection.updateTaskStatus(status, givenPk)
+        }
+    }
+
     fun deleteTask(task: Data) {
         CoroutineScope(IO).launch {
             connection.deleteTask(task)
