@@ -88,6 +88,7 @@ class AddTaskActivity : AppCompatActivity() {
             } else {
                 StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast)
             }
+            finish()
         }
     }
 
