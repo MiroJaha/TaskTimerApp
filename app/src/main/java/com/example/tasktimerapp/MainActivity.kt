@@ -98,7 +98,6 @@ class MainActivity : AppCompatActivity() {
                     reset.performClick()
                     taskViewModel.updateTaskStatus(false, tasksList[previousPosition].pk)
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
-                    savedTime =0
                     previousPosition=position
                 }
                 else{
@@ -125,11 +124,13 @@ class MainActivity : AppCompatActivity() {
                 val nowTime = pauseOffset - savedTime
                 taskViewModel.updateTaskTime(tasksList[previousPosition].taskTime+nowTime/1000,tasksList[previousPosition].pk)
                 timer.base = SystemClock.elapsedRealtime()
+                savedTime =0
                 pauseOffset = 0
             }
             else {
                 progressBar.isIndeterminate = false
                 timer.base = SystemClock.elapsedRealtime()
+                savedTime =0
                 pauseOffset = 0
             }
         }
