@@ -4,6 +4,14 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.anychart.AnyChart
+import com.anychart.AnyChartView
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.example.tasktimerapp.room.Data
+import com.example.tasktimerapp.rv_adapter.RVViewAdapter
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrInterface
@@ -12,14 +20,42 @@ import com.r0adkll.slidr.model.SlidrPosition
 class TaskDetailsActivity : AppCompatActivity() {
 
     private val taskViewModel by lazy { ViewModelProvider(this).get(TaskViewModel::class.java) }
+    private lateinit var rvViewAdapter: RVViewAdapter
 
     private lateinit var slidr: SlidrInterface
+    private lateinit var pieChart: AnyChartView
+    private lateinit var rvAll: RecyclerView
+    private lateinit var tasksList : ArrayList<Data>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_details)
 
+        pieChart=findViewById(R.id.pieChart)
+        rvAll=findViewById(R.id.rvAll)
+        tasksList= arrayListOf()
+
+        rvViewAdapter= RVViewAdapter(this,tasksList)
+        rvAll.adapter = rvViewAdapter
+        rvAll.layoutManager = LinearLayoutManager(this)
+
+        taskViewModel.getAllTasks().observe(this){
+            tasksList.addAll(it)
+            rvViewAdapter.notifyDataSetChanged()
+            setPieChart()
+        }
+
         slidrBuilding()
+    }
+
+    private fun setPieChart() {
+        val pie=AnyChart.pie()
+        val dataEntries = ArrayList<DataEntry>()
+        for (i in tasksList){
+            dataEntries.add(ValueDataEntry(i.taskName,(i.taskTime/1000).toInt()))
+        }
+        pie.data(dataEntries)
+        pieChart.setChart(pie)
     }
 
     private fun slidrBuilding() {

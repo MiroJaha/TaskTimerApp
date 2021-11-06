@@ -8,6 +8,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/rvLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="3dp"
@@ -41,10 +42,10 @@
                 android:fontFamily="sans-serif" />
 
             <TextView
-                android:id="@+id/priority"
+                android:id="@+id/totalTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Priority - High"
+                android:text="Total Time"
                 android:textSize="15sp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
