@@ -14,7 +14,8 @@ class InstructionsScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.instructions_screen)
 
-        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        sharedPreferences =
+            this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
 
 
@@ -22,7 +23,7 @@ class InstructionsScreen : AppCompatActivity() {
 
 
         with(sharedPreferences.edit()) {
-            putInt("CheckWelcomeStatus",0)
+            putInt("CheckWelcomeStatus", 0)
             apply()
         }
     }

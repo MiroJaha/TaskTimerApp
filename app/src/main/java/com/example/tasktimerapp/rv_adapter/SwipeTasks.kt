@@ -9,11 +9,11 @@ import com.example.tasktimerapp.R
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
-abstract class SwipeTasks(context: Context):ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+abstract class SwipeTasks(context: Context) :
+    ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
-    private val deleteColor= ContextCompat.getColor(context, R.color.deleteColor)
-    private val editColor= ContextCompat.getColor(context, R.color.editColor)
-
+    private val deleteColor = ContextCompat.getColor(context, R.color.deleteColor)
+    private val editColor = ContextCompat.getColor(context, R.color.editColor)
 
 
     override fun onMove(
@@ -34,7 +34,15 @@ abstract class SwipeTasks(context: Context):ItemTouchHelper.SimpleCallback(0,Ite
         isCurrentlyActive: Boolean
     ) {
 
-        RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        RecyclerViewSwipeDecorator.Builder(
+            c,
+            recyclerView,
+            viewHolder,
+            dX,
+            dY,
+            actionState,
+            isCurrentlyActive
+        )
             .addSwipeLeftBackgroundColor(deleteColor)
             .addSwipeLeftActionIcon(R.drawable.delete_ic)
             .addSwipeRightBackgroundColor(editColor)

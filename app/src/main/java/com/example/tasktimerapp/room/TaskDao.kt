@@ -9,7 +9,7 @@ interface TaskDao {
     fun getAllTasks(): LiveData<List<Data>>
 
     @Query("SELECT * FROM Tasks WHERE pk = :givenPk")
-    fun getTask(givenPk:Int): Data
+    fun getTask(givenPk: Int): Data
 
     @Query("UPDATE Tasks SET taskTime = :taskTime WHERE pk = :givenPk")
     fun updateTaskTime(taskTime: Long, givenPk: Int)

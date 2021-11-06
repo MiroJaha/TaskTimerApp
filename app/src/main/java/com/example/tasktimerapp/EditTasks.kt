@@ -29,10 +29,10 @@ class EditTasks : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var taskName: String
     private lateinit var taskDescription: String
-    private lateinit var priority : String
+    private lateinit var priority: String
     private lateinit var oldPriority: String
-    private var pk= 0
-    private lateinit var data : Data
+    private var pk = 0
+    private lateinit var data: Data
     private lateinit var bundle: Bundle
     private val priorityList = arrayListOf("High", "Medium", "Low")
     private lateinit var slidr: SlidrInterface
@@ -46,14 +46,14 @@ class EditTasks : AppCompatActivity() {
         prioritySpinner = findViewById(R.id.spinner)
         saveButton = findViewById(R.id.save_button)
 
-        bundle= intent.extras!!
-        pk= bundle.getInt("pk")
+        bundle = intent.extras!!
+        pk = bundle.getInt("pk")
         CoroutineScope(IO).launch {
-            data= taskViewModel.getTask(pk)
-            withContext(Main){
-                taskName= data.taskName
-                taskDescription= data.taskDescription
-                priority= data.priority
+            data = taskViewModel.getTask(pk)
+            withContext(Main) {
+                taskName = data.taskName
+                taskDescription = data.taskDescription
+                priority = data.priority
 
                 onSpinnerSelected()
 
@@ -87,31 +87,31 @@ class EditTasks : AppCompatActivity() {
     }
 
     private fun checkEntry(): Boolean {
-        var check=false
+        var check = false
         if (taskNameEntry.text.isNotBlank()) {
             taskName = taskNameEntry.text.toString()
-            check=true
+            check = true
         }
-        if (taskDescriptionEntry.text.isNotBlank()){
-            taskDescription= taskDescriptionEntry.text.toString()
-            check=true
+        if (taskDescriptionEntry.text.isNotBlank()) {
+            taskDescription = taskDescriptionEntry.text.toString()
+            check = true
         }
-        if (oldPriority != priority){
-            check=true
+        if (oldPriority != priority) {
+            check = true
         }
         return check
     }
 
     private fun setHint() {
-        taskNameEntry.hint= "Task Name: $taskName"
+        taskNameEntry.hint = "Task Name: $taskName"
         taskNameEntry.text.clear()
         taskNameEntry.clearFocus()
-        taskDescriptionEntry.hint= "Task Description:\n$taskDescription"
+        taskDescriptionEntry.hint = "Task Description:\n$taskDescription"
         taskDescriptionEntry.text.clear()
         taskDescriptionEntry.clearFocus()
-        oldPriority=priority
-        for (i in 0 until priorityList.size){
-            if (priority==priorityList[i]){
+        oldPriority = priority
+        for (i in 0 until priorityList.size) {
+            if (priority == priorityList[i]) {
                 prioritySpinner.setSelection(i)
             }
         }
@@ -151,6 +151,6 @@ class EditTasks : AppCompatActivity() {
             .edgeSize(0.18f) // The % of the screen that counts as the edge, default 18%
             .build() //You can add .listener(new SlidrListener(){...}) before build
 
-        slidr= Slidr.attach(this,config)
+        slidr = Slidr.attach(this, config)
     }
 }

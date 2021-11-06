@@ -82,7 +82,8 @@ class AddTaskActivity : AppCompatActivity() {
                         StyleableToast.makeText(this, "Add Successfully", R.style.addToast).show()
                     }
                     else -> {
-                        StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast).show()
+                        StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast)
+                            .show()
                     }
                 }
                 finish()
@@ -137,6 +138,6 @@ class AddTaskActivity : AppCompatActivity() {
             .edgeSize(0.18f) // The % of the screen that counts as the edge, default 18%
             .build() //You can add .listener(new SlidrListener(){...}) before build
 
-        slidr= Slidr.attach(this,config)
+        slidr = Slidr.attach(this, config)
     }
 }

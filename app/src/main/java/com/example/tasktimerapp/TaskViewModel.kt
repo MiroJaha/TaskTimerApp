@@ -17,7 +17,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return connection.getAllTasks()
     }
 
-    fun getTask(givenPk:Int): Data{
+    fun getTask(givenPk: Int): Data {
         return connection.getTask(givenPk)
     }
 
@@ -33,13 +33,13 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updateTaskTime(taskTime: Long, givenPk: Int){
+    fun updateTaskTime(taskTime: Long, givenPk: Int) {
         CoroutineScope(IO).launch {
-            connection.updateTaskTime(taskTime,givenPk)
+            connection.updateTaskTime(taskTime, givenPk)
         }
     }
 
-    fun updateTaskStatus(status: Boolean, givenPk: Int){
+    fun updateTaskStatus(status: Boolean, givenPk: Int) {
         CoroutineScope(IO).launch {
             connection.updateTaskStatus(status, givenPk)
         }

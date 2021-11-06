@@ -17,16 +17,16 @@ class WelcomeScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.welcome_screen)
 
-        sharedPreferences = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val checkWelcomeStatus = sharedPreferences.getInt("CheckWelcomeStatus",1)
+        sharedPreferences =
+            this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val checkWelcomeStatus = sharedPreferences.getInt("CheckWelcomeStatus", 1)
 
         val handler = Handler()
         handler.postDelayed({
-            if (checkWelcomeStatus==1){
-                startActivity(Intent(this,MainActivity::class.java))
-            }
-            else{
-                startActivity(Intent(this,InstructionsScreen::class.java))
+            if (checkWelcomeStatus == 1) {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                startActivity(Intent(this, InstructionsScreen::class.java))
             }
         }, 20000)
 
