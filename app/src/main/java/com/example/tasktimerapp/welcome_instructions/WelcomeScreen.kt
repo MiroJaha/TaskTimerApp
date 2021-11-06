@@ -19,7 +19,7 @@ class WelcomeScreen : AppCompatActivity() {
 
         sharedPreferences =
             this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val checkWelcomeStatus = sharedPreferences.getInt("CheckWelcomeStatus", 1)
+        val checkWelcomeStatus = sharedPreferences.getInt("CheckWelcomeStatus", 0)
 
         val handler = Handler()
         handler.postDelayed({
