@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
                 }
                 else if (running){
+                    taskName.text = tasksList[position].taskName
                     reset.performClick()
                     taskViewModel.updateTaskStatus(false, tasksList[previousPosition].pk)
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                     previousPosition=position
                 }
                 else{
+                    taskName.text = tasksList[position].taskName
                     progressBar.isIndeterminate = true
                     timer.start()
                     timer.base = SystemClock.elapsedRealtime()

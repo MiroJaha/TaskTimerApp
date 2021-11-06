@@ -55,7 +55,7 @@ class AddTaskActivity : AppCompatActivity() {
                                 "High"
                             )
                         )
-                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast).show()
                     }
                     "Medium" -> {
                         taskViewModel.addNewTask(
@@ -67,7 +67,7 @@ class AddTaskActivity : AppCompatActivity() {
                                 "Medium"
                             )
                         )
-                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast).show()
                     }
                     "Low" -> {
                         taskViewModel.addNewTask(
@@ -79,14 +79,14 @@ class AddTaskActivity : AppCompatActivity() {
                                 "Low"
                             )
                         )
-                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast)
+                        StyleableToast.makeText(this, "Add Successfully", R.style.addToast).show()
                     }
                     else -> {
-                        StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast)
+                        StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast).show()
                     }
                 }
             } else {
-                StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast)
+                StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast).show()
             }
             finish()
         }

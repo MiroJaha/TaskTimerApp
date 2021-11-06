@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tasktimerapp">
 
     <application
@@ -9,10 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskTimerApp">
-        <activity android:name=".welcome_instructions.InstructionsScreen" />
+        <activity android:name=".welcome_instructions.InstructionsScreen"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:turnScreenOn="false"
+            tools:targetApi="o_mr1" />
         <activity
             android:name=".welcome_instructions.WelcomeScreen"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:turnScreenOn="false"
+            tools:targetApi="o_mr1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,18 +30,34 @@
         <activity
             android:name=".TaskDetailsActivity"
             android:exported="true"
-            android:theme="@style/slidr" />
+            android:theme="@style/slidr"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:turnScreenOn="false"
+            tools:targetApi="o_mr1"/>
         <activity
             android:name=".AddTaskActivity"
             android:exported="true"
-            android:theme="@style/slidr" />
+            android:theme="@style/slidr"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:turnScreenOn="false"
+            tools:targetApi="o_mr1"/>
         <activity
             android:name=".EditTasks"
             android:exported="true"
-            android:theme="@style/slidr" />
+            android:theme="@style/slidr"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:turnScreenOn="false"
+            tools:targetApi="o_mr1"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:turnScreenOn="false"
+            tools:targetApi="o_mr1"/>
     </application>
 
 </manifest>

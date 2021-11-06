@@ -77,9 +77,9 @@ class EditTasks : AppCompatActivity() {
                         priority
                     )
                 )
-                StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
+                StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast).show()
             } else {
-                StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast)
+                StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast).show()
             }
             setHint()
         }
