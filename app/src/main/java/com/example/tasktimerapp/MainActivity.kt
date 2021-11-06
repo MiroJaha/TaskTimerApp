@@ -3,6 +3,7 @@ package com.example.tasktimerapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -43,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         showAllButton= findViewById(R.id.showAll)
         tasksList= arrayListOf()
 
+        taskName.text = "No Task Started"
+        timer.base = SystemClock.elapsedRealtime()
+
         adapter= RVMainAdapter(this,tasksList)
         rvItem.adapter= adapter
         rvItem.layoutManager= LinearLayoutManager(this)
@@ -66,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addButtonsListeners() {
         reset.setOnClickListener{
-
+            timer.base = SystemClock.elapsedRealtime()
         }
         addButton.setOnClickListener{
             startActivity(Intent(this,AddTaskActivity::class.java))
