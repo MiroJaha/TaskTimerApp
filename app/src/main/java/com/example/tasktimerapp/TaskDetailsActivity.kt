@@ -14,7 +14,7 @@ class TaskDetailsActivity : AppCompatActivity() {
     private val taskViewModel by lazy { ViewModelProvider(this).get(TaskViewModel::class.java) }
 
     private lateinit var slidr: SlidrInterface
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_details)

@@ -28,13 +28,20 @@ class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Dat
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        expansionsCollection.add(holder.binding.expansionLayout)
-        val time= tasks[position].taskTime
-        holder.binding.timer.base= SystemClock.elapsedRealtime() - time*1000
+
+
+        val task= tasks[position]
+
         holder.binding.apply {
+            expansionsCollection.add(expansionLayout)
+
+            timer.base= SystemClock.elapsedRealtime() - (task.taskTime*1000)
+
             title.text = tasks[position].taskName
+
             descriptionAndTime.text= "Description: ${tasks[position].taskDescription}\nTotal Time: ${timer.contentDescription}"
-            when(tasks[position].priority){
+
+            when(task.priority){
                 "High" -> {
                     mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.high))
                 }
@@ -45,6 +52,12 @@ class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Dat
                     mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.low))
                 }
             }
+
+            if (task.isRunning){
+                running.text = "Running"
+            }
+            else
+                running.text = "Stop"
         }
     }
 
