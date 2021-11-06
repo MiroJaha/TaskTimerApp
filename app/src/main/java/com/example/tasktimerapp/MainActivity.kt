@@ -133,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                 pauseOffset = 0
             } else {
                 progressBar.isIndeterminate = false
+                progressBar.progress = 0
                 timer.base = SystemClock.elapsedRealtime()
                 savedTime = 0
                 pauseOffset = 0
