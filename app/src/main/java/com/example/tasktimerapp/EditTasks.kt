@@ -1,5 +1,6 @@
 package com.example.tasktimerapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -7,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasktimerapp.room.Data
+import com.r0adkll.slidr.Slidr
+import com.r0adkll.slidr.model.SlidrConfig
+import com.r0adkll.slidr.model.SlidrInterface
+import com.r0adkll.slidr.model.SlidrPosition
 import io.github.muddz.styleabletoast.StyleableToast
 
 class EditTasks : AppCompatActivity() {
@@ -24,6 +29,7 @@ class EditTasks : AppCompatActivity() {
     private lateinit var data : Data
     private lateinit var bundle: Bundle
     private val priorityList = arrayListOf("High", "Medium", "Low")
+    private lateinit var slidr: SlidrInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,53 +48,27 @@ class EditTasks : AppCompatActivity() {
         priority= data.priority
 
         onSpinnerSelected()
+
         setHint()
+
+        onSaveButtonClicked()
+
+        slidrBuilding()
     }
 
     private fun onSaveButtonClicked() {
         saveButton.setOnClickListener {
             if (checkEntry()) {
-                when (priority) {
-                    "High" -> {
-                        taskViewModel.addNewTask(
-                            Data(
-                                0,
-                                taskNameEntry.text.toString(),
-                                taskDescriptionEntry.text.toString(),
-                                0,
-                                "High"
-                            )
-                        )
-                        StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
-                    }
-                    "Medium" -> {
-                        taskViewModel.addNewTask(
-                            Data(
-                                0,
-                                taskNameEntry.text.toString(),
-                                taskDescriptionEntry.text.toString(),
-                                0,
-                                "Medium"
-                            )
-                        )
-                        StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
-                    }
-                    "Low" -> {
-                        taskViewModel.addNewTask(
-                            Data(
-                                0,
-                                taskNameEntry.text.toString(),
-                                taskDescriptionEntry.text.toString(),
-                                0,
-                                "Low"
-                            )
-                        )
-                        StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
-                    }
-                    else -> {
-                        StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast)
-                    }
-                }
+                taskViewModel.updateTask(
+                    Data(
+                        pk,
+                        taskNameEntry.text.toString(),
+                        taskDescriptionEntry.text.toString(),
+                        data.taskTime,
+                        priority
+                    )
+                )
+                StyleableToast.makeText(this, "Updated Successfully", R.style.updateToast)
             } else {
                 StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast)
             }
@@ -143,5 +123,23 @@ class EditTasks : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
+    }
+
+    private fun slidrBuilding() {
+        val config = SlidrConfig.Builder()
+            .primaryColor(resources.getColor(R.color.design_default_color_primary))
+            .secondaryColor(resources.getColor(R.color.design_default_color_secondary))
+            .position(SlidrPosition.LEFT) //LEFT|RIGHT|TOP|BOTTOM|VERTICAL|HORIZONTAL
+            .sensitivity(1f)
+            .scrimColor(Color.BLACK)
+            .scrimStartAlpha(0.8f)
+            .scrimEndAlpha(0f)
+            .velocityThreshold(2400f)
+            .distanceThreshold(0.25f)
+            .edge(false) //true|false
+            .edgeSize(0.18f) // The % of the screen that counts as the edge, default 18%
+            .build() //You can add .listener(new SlidrListener(){...}) before build
+
+        slidr= Slidr.attach(this,config)
     }
 }

@@ -9,5 +9,6 @@ data class Data(
     val taskName: String,
     val taskDescription: String,
     val taskTime: Long,
-    val priority: String
+    val priority: String,
+    val isRunning: Boolean = false
 )

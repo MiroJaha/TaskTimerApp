@@ -61,4 +61,8 @@
         <item name="stLength">LONG</item>
         <item name="stRadius">15dp</item>
     </style>
+    <style name="slidr" parent="Theme.TaskTimerApp">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>
