@@ -52,18 +52,18 @@ class MainActivity : AppCompatActivity() {
         taskName.text = "No Task Started"
         timer.base = SystemClock.elapsedRealtime()
 
+        tasksList= arrayListOf()
         adapter= RVMainAdapter(this,tasksList)
         rvItem.adapter= adapter
         rvItem.layoutManager= LinearLayoutManager(this)
 
-        tasksList= arrayListOf()
+        adapterListener()
+
         taskViewModel.getAllTasks().observe(this){
             tasksList.clear()
             tasksList.addAll(it)
             adapter.updateRVMain()
         }
-
-        adapterListener()
 
         swipeTasksBuilder()
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     savedTime= pauseOffset - savedTime
                     progressBar.progress = (pauseOffset - (second*1000)).toInt()
 
-                    taskViewModel.updateTaskTime(tasksList[position].taskTime + pauseOffset / 1000 ,tasksList[position].pk)
+                    taskViewModel.updateTaskTime(tasksList[position].taskTime + pauseOffset/1000 ,tasksList[position].pk)
 
                     running = false
                     taskViewModel.updateTaskStatus(false, tasksList[position].pk)

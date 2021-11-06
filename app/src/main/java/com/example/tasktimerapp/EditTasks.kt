@@ -13,6 +13,11 @@ import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrInterface
 import com.r0adkll.slidr.model.SlidrPosition
 import io.github.muddz.styleabletoast.StyleableToast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EditTasks : AppCompatActivity() {
 
@@ -42,14 +47,18 @@ class EditTasks : AppCompatActivity() {
 
         bundle= intent.extras!!
         pk= bundle.getInt("pk")
-        data= taskViewModel.getTask(pk)
-        taskName= data.taskName
-        taskDescription= data.taskDescription
-        priority= data.priority
+        CoroutineScope(IO).launch {
+            data= taskViewModel.getTask(pk)
+            withContext(Main){
+                taskName= data.taskName
+                taskDescription= data.taskDescription
+                priority= data.priority
 
-        onSpinnerSelected()
+                onSpinnerSelected()
 
-        setHint()
+                setHint()
+            }
+        }
 
         onSaveButtonClicked()
 

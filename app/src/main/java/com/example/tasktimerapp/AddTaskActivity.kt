@@ -64,7 +64,7 @@ class AddTaskActivity : AppCompatActivity() {
                                 taskNameEntry.text.toString(),
                                 taskDescriptionEntry.text.toString(),
                                 0,
-                                "High"
+                                "Medium"
                             )
                         )
                         StyleableToast.makeText(this, "Add Successfully", R.style.addToast)

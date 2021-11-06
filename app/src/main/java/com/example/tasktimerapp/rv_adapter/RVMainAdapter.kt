@@ -58,13 +58,13 @@ class RVMainAdapter(private val context:Context,private val tasks: ArrayList<Dat
 
             when(task.priority){
                 "High" -> {
-                    mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.high))
+                    mainLay.setCardBackgroundColor(ContextCompat.getColor(context, R.color.high))
                 }
                 "Medium" -> {
-                    mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.medium))
+                    mainLay.setCardBackgroundColor(ContextCompat.getColor(context, R.color.medium))
                 }
                 "Low" -> {
-                    mainLay.setBackgroundColor(ContextCompat.getColor(context, R.color.low))
+                    mainLay.setCardBackgroundColor(ContextCompat.getColor(context, R.color.low))
                 }
             }
 
