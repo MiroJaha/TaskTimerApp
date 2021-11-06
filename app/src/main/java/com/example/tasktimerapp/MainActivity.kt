@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tasksList: ArrayList<Data>
     private var running = false
     private var pauseOffset: Long=0
-    private var savedTime: Long=0
     private var previousPosition= -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,10 +75,10 @@ class MainActivity : AppCompatActivity() {
                 if (previousPosition == position && running){
                     timer.stop()
                     pauseOffset = SystemClock.elapsedRealtime() - timer.base
-                    val second: Int= (pauseOffset / 1000).toInt()
+                    val second: Int= (pauseOffset / 100).toInt()
                     progressBar.isIndeterminate = false
-                    savedTime= pauseOffset - savedTime
-                    progressBar.progress = (savedTime - (second*1000)).toInt()
+                    val savedTime: Long= pauseOffset
+                    progressBar.progress = (savedTime - (second*100)).toInt()
                     running = false
                     taskViewModel.updateTaskTime(tasksList[position].taskTime + pauseOffset/1000 ,tasksList[position].pk)
                     taskViewModel.updateTaskStatus(false, tasksList[position].pk)
@@ -91,13 +90,13 @@ class MainActivity : AppCompatActivity() {
                     running = true
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
                 }
-                else if (running){
+                /*else if (running){
                     reset.performClick()
                     taskViewModel.updateTaskStatus(false, tasksList[previousPosition].pk)
                     taskViewModel.updateTaskStatus(true, tasksList[position].pk)
                     savedTime =0
                     previousPosition=position
-                }
+                }*/
                 else{
                     progressBar.isIndeterminate = true
                     timer.start()
