@@ -44,12 +44,12 @@ class InstructionsScreen : AppCompatActivity() {
 
     fun starTask(view: View) {
         binding.startTimeLay.isVisible = false
-        binding.buttonsLay.isVisible = true
+        binding.editSwipe.isVisible = true
     }
 
     fun buttonsShow(view: View) {
         binding.buttonsLay.isVisible = false
-        binding.editSwipe.isVisible = true
+        binding.addPage.isVisible = true
     }
 
     fun updateWay(view: View) {
@@ -59,7 +59,7 @@ class InstructionsScreen : AppCompatActivity() {
 
     fun deleteWay(view: View) {
         binding.deleteSwipe.isVisible = false
-        binding.addPage.isVisible = true
+        binding.buttonsLay.isVisible = true
     }
 
     fun addPage(view: View) {
