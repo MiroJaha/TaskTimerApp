@@ -17,7 +17,7 @@
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
         <item name="stTextSize">20sp</item>
-        <item name="stColorBackground">#71FF0000</item>
+        <item name="stColorBackground">#B3FF0000</item>
         <item name="stStrokeWidth">3dp</item>
         <item name="stStrokeColor">#000000</item>
         <item name="stIconStart">@drawable/danger</item>
@@ -29,7 +29,7 @@
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
         <item name="stTextSize">20sp</item>
-        <item name="stColorBackground">#710059FF</item>
+        <item name="stColorBackground">#B30059FF</item>
         <item name="stStrokeWidth">3dp</item>
         <item name="stStrokeColor">#000000</item>
         <item name="stIconStart">@drawable/delete_ic_emoji</item>
@@ -41,7 +41,7 @@
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
         <item name="stTextSize">20sp</item>
-        <item name="stColorBackground">#712BFF00</item>
+        <item name="stColorBackground">#B32BFF00</item>
         <item name="stStrokeWidth">3dp</item>
         <item name="stStrokeColor">#000000</item>
         <item name="stIconStart">@drawable/add_ic_emoji</item>
@@ -53,7 +53,7 @@
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
         <item name="stTextSize">20sp</item>
-        <item name="stColorBackground">#71FFE100</item>
+        <item name="stColorBackground">#B3FFE100</item>
         <item name="stStrokeWidth">3dp</item>
         <item name="stStrokeColor">#000000</item>
         <item name="stIconStart">@drawable/update_ic_emoji</item>

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tasktimerapp.room.Data
 import com.example.tasktimerapp.rv_adapter.RVMainAdapter
 import com.example.tasktimerapp.rv_adapter.SwipeTasks
+import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.Dispatchers.IO
 
 class MainActivity : AppCompatActivity() {
@@ -76,18 +77,20 @@ class MainActivity : AppCompatActivity() {
                 if (previousPosition == position && running){
                     timer.stop()
                     pauseOffset = SystemClock.elapsedRealtime() - timer.base
-                    val second: Int= (pauseOffset / 100).toInt()
+                    val second: Int= (pauseOffset / 1000).toInt()
                     progressBar.isIndeterminate = false
                     val nowTime= pauseOffset - savedTime
+                    progressBar.progress = (pauseOffset - (second*1000)).toInt()
                     savedTime= pauseOffset
                     Log.d("MyTime","$nowTime")
-                    progressBar.progress = (savedTime - (second*100)).toInt()
                     running = false
                     taskViewModel.updateTaskTime(tasksList[position].taskTime + nowTime/1000 ,tasksList[position].pk)
                     taskViewModel.updateTaskStatus(false, tasksList[position].pk)
                 }
                 else if (previousPosition == position && !running){
                     progressBar.isIndeterminate = true
+                    val second: Int= (pauseOffset / 1000).toInt()
+                    progressBar.progress = (pauseOffset - (second*1000)).toInt()
                     timer.base = SystemClock.elapsedRealtime() - pauseOffset
                     timer.start()
                     running = true
@@ -153,6 +156,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     ItemTouchHelper.LEFT -> {
                         taskViewModel.deleteTask(tasksList[viewHolder.adapterPosition])
+                        StyleableToast.makeText(this@MainActivity, "Deleted Successfully", R.style.deleteToast).show()
                     }
                 }
             }

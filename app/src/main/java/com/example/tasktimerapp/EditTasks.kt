@@ -30,6 +30,7 @@ class EditTasks : AppCompatActivity() {
     private lateinit var taskName: String
     private lateinit var taskDescription: String
     private lateinit var priority : String
+    private lateinit var oldPriority: String
     private var pk= 0
     private lateinit var data : Data
     private lateinit var bundle: Bundle
@@ -71,8 +72,8 @@ class EditTasks : AppCompatActivity() {
                 taskViewModel.updateTask(
                     Data(
                         pk,
-                        taskNameEntry.text.toString(),
-                        taskDescriptionEntry.text.toString(),
+                        taskName,
+                        taskDescription,
                         data.taskTime,
                         priority
                     )
@@ -95,7 +96,7 @@ class EditTasks : AppCompatActivity() {
             taskDescription= taskDescriptionEntry.text.toString()
             check=true
         }
-        if (prioritySpinner.selectedItem.toString() != priority){
+        if (oldPriority != priority){
             check=true
         }
         return check
@@ -108,6 +109,7 @@ class EditTasks : AppCompatActivity() {
         taskDescriptionEntry.hint= "Task Description:\n$taskDescription"
         taskDescriptionEntry.text.clear()
         taskDescriptionEntry.clearFocus()
+        oldPriority=priority
         for (i in 0 until priorityList.size){
             if (priority==priorityList[i]){
                 prioritySpinner.setSelection(i)

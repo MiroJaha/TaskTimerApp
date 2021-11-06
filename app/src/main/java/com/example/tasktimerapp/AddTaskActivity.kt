@@ -85,10 +85,10 @@ class AddTaskActivity : AppCompatActivity() {
                         StyleableToast.makeText(this, "Please Choose Priority", R.style.failToast).show()
                     }
                 }
+                finish()
             } else {
                 StyleableToast.makeText(this, "Please Enter Valid Values", R.style.failToast).show()
             }
-            finish()
         }
     }
 
