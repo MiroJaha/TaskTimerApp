@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface TaskDao {
-    @Query("SELECT * FROM Tasks")
+    @Query("SELECT * FROM TasksP")
     fun getAllTasks(): LiveData<List<Data>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
