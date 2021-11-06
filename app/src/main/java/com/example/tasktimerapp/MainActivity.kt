@@ -152,6 +152,22 @@ class MainActivity : AppCompatActivity() {
                         val intent= Intent(this@MainActivity,EditTasks::class.java)
                         intent.putExtra("pk",tasksList[viewHolder.adapterPosition].pk)
                         startActivity(intent)
+                        adapter.notifyDataSetChanged()
+                        if (running){
+                            timer.stop()
+                            progressBar.isIndeterminate = false
+                            pauseOffset = SystemClock.elapsedRealtime() - timer.base
+                            val nowTime = pauseOffset - savedTime
+                            taskViewModel.updateTaskTime(
+                                tasksList[previousPosition].taskTime + nowTime,
+                                tasksList[previousPosition].pk
+                            )
+                            taskViewModel.updateTaskStatus(false, tasksList[previousPosition].pk)
+                            timer.base = SystemClock.elapsedRealtime()
+                            running = false
+                            savedTime = 0
+                            pauseOffset = 0
+                        }
                     }
                     ItemTouchHelper.LEFT -> {
                         taskViewModel.deleteTask(tasksList[viewHolder.adapterPosition])

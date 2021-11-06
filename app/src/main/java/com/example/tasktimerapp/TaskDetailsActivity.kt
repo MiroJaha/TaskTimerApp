@@ -3,6 +3,8 @@ package com.example.tasktimerapp
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,7 +47,30 @@ class TaskDetailsActivity : AppCompatActivity() {
             setPieChart()
         }
 
+        rvOnScrollListener()
+
         slidrBuilding()
+    }
+
+    private fun rvOnScrollListener() {
+        rvAll.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (tasksList.size>5){
+                    if (dy<0)
+                        pieChart.isVisible = false
+                }
+                super.onScrolled(recyclerView, dx, dy)
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (tasksList.size>5) {
+                    if (recyclerView.canScrollVertically(1))
+                        pieChart.isVisible = true
+                }
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
     }
 
     private fun setPieChart() {
