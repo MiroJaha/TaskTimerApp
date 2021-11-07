@@ -57,7 +57,7 @@ class TaskDetailsActivity : AppCompatActivity() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (tasksList.size > 5) {
-                    if (dy < 0)
+                    if (dy > 0)
                         pieChart.isVisible = false
                 }
                 super.onScrolled(recyclerView, dx, dy)
