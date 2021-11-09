@@ -25,7 +25,7 @@ class RVMainAdapter(private val context: Context, private val tasks: ArrayList<D
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.title.setOnClickListener {
-                listener.onItemClick(adapterPosition)
+                listener.onItemClick(absoluteAdapterPosition)
             }
         }
     }
