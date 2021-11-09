@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this@MainActivity, EditTasks::class.java)
                         intent.putExtra("pk", tasksList[viewHolder.adapterPosition].pk)
                         startActivity(intent)
-                        adapter.notifyDataSetChanged()
+                        adapter.updateRVMain()
                         ifRunning()
                     }
                     ItemTouchHelper.LEFT -> {
