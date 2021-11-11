@@ -41,11 +41,12 @@
         <item name="stTextBold">true</item>
         <item name="stTextColor">#fff</item>
         <item name="stTextSize">20sp</item>
-        <item name="stColorBackground">#B32BFF00</item>
+        <item name="stColorBackground">#B341A42D</item>
         <item name="stStrokeWidth">3dp</item>
         <item name="stStrokeColor">#000000</item>
         <item name="stIconStart">@drawable/add_ic_emoji</item>
         <item name="stIconEnd">@drawable/add_ic_emoji</item>
+        <item name="iconSize">25dp</item>
         <item name="stLength">LONG</item>
         <item name="stRadius">15dp</item>
     </style>
